@@ -42,3 +42,35 @@ So 50% of the parent element is where the text box was located to the left side.
 Transform: translate
 But, on the transform here, when we translated, this is in relation to the element itself.
 And this makes it possible that the element is exactly at the center.
+
+
+
+
+## Animations
+it's best to only ever animate two different properties.
+
+One is opacity, which is the one that we're using here,
+
+and the other one is the transform property.
+
+That's what the browsers are optimized for,
+
+for these two properties.
+
+
+### Animation-timing-functions
+
+`animation`
+is the shorthand for a number of animation properties
+
+`animation: moveInRight 1s ease-out;`
+
+
+### `backface-visibility:hidden`
+right before the animation ends you will probably
+
+see a little shake here, okay?
+
+So let's take a close look at the end.
+
+no one really knows actually why this happens, but we, actually, we have a fix for this. So there is something that we can do and what we have to do in this case, is to simply declare the backface-visibility property, backface-visibility, and set it to hidden. So the entire heading-primary element because you see actually this entire element is what moves on this animation. So it's a bit shaky, and its the entire heading-primary element. This backface-visibility property determines if the back part of the element when we transform it is visible or hidden for the user.

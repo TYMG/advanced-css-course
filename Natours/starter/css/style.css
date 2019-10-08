@@ -38,11 +38,17 @@ body {
     position: absolute;
     top: 40px;
     left: 40px;
+    backface-visibility: hidden;
+
 }
 
 .logo{
 height: 35px;
 }
+.logo:hover{
+    animation: spinner 1s infinite;
+}
+
 .text-box{
     position: absolute;
     top: 50%;
@@ -53,6 +59,7 @@ height: 35px;
 .heading-primary{
     color:#fff;
     text-transform: uppercase;
+    backface-visibility: hidden;
 }
 
 .heading-primary-main{
@@ -60,6 +67,10 @@ height: 35px;
     font-size: 60px;
     font-weight: 400;
     letter-spacing: 35px;
+
+    animation-name: moveInLeft;
+    animation-duration: 2s; 
+    animation-timing-function: ease-out;
 }
 
 .heading-primary-sub{
@@ -67,5 +78,61 @@ height: 35px;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 17.4px;
+    animation: moveInRight 2s ease-out;
+}
+
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: rotate(-100px) rotate(90deg);
+    }
+
+    80% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+
+    }
+
+}
+
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    80% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+
+    }
+}
+
+
+    @keyframes spinner {
+        0% {
+            transform: rotate(0deg);
+        }
+        
+
+        50%{
+            transform: rotate(720deg) ;
+
+        } 
+        
+        100% {
+            transform: rotate(720deg);
+    
+        }
+    }
 
 }
