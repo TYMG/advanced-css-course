@@ -39,14 +39,16 @@ body {
     top: 40px;
     left: 40px;
     backface-visibility: hidden;
-
+    animation: spinner 5s;
+    animation-fill-mode:backwards;
 }
 
 .logo{
 height: 35px;
 }
+
 .logo:hover{
-    animation: spinner 1s infinite;
+  
 }
 
 .text-box{
@@ -83,6 +85,23 @@ height: 35px;
     animation: moveInRight 2s ease-out;
 }
 
+
+@keyframes spinner {
+    0% {
+        opacity: 1;
+        transform: translateX(100px) translateY(100px) rotate(720deg);
+    }
+
+
+    100% {
+        opacity: 1;
+        transform:  translate(0);
+
+    }
+
+}
+
+
 @keyframes moveInLeft {
     0% {
         opacity: 0;
@@ -105,11 +124,27 @@ height: 35px;
 @keyframes moveInRight {
     0% {
         opacity: 0;
-        transform: translateX(100px);
+        transform: translateX(1000px);
     }
 
     80% {
         transform: translateX(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+
+    }
+}
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(1000px);
+    }
+
+    80% {
+        transform: translateY(-10px);
     }
 
     100% {
@@ -127,6 +162,7 @@ height: 35px;
     display: inline-block;
     border-radius: 100px;
     transition: all .2s;
+    position: relative;
 }
 .btn:hover {
     transform: translateY(-3px);
@@ -139,4 +175,31 @@ height: 35px;
 .btn-white {
     background-color: #fff;
     color: #777;
+}
+
+.btn::after{
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.btn-white::after {
+    background-color: #fff;
+}
+
+.btn:hover::after{
+    transform: scaleX(1.5) scaleY(1.6);
+    opacity: 0;
+}
+
+.btn-animated{
+    animation: moveInBottom 2s ease-in .75s;
+    animation-fill-mode:backwards;
 }

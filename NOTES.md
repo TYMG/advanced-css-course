@@ -121,3 +121,19 @@ And we want it to move up so we use a negative value
 }
 ```
 ---
+
+### `::after` Pseudo Element Requirements
+First, in order for an after pseudo-element to actually appear on the page, we need to specify **its content property**. So that's always necessary. It doesn't matter what the content is. It can even be empty like we're gonna do here, but we have to specify it. Otherwise it's not going to appear. And the same thing with the display property. So we have to specify the display property.
+
+### setting  height width using `::after`
+
+So we want to have a height of 100%. And we want to have a width of 100% as well. And this works because the after pseudo-element is basically treated like a child of the button. And so if we say that we want the height to be 100%, that's 100% of the width of the button. And so suppose that the button has 100 pixels of height and 50 pixels of width. And so this after pseudo-element will have the exact same dimensions if we set it to 100%.
+
+---
+
+        That's the trick for fading something out, is going to opacity zero
+
+---
+
+### `animation-fill-mode:backwards`
+is that it will automatically apply the styles up to zero percent before the animation starts. So, again, these styles will now be applied before the animation starts simply by using the animation fill mode and set it to backwards.
