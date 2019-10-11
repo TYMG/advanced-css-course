@@ -1,3 +1,5 @@
+## Section 2: Natours Project (Part 1) 
+
 `background-size: cover;`
 And what cover does is that whatever the width of the viewport, or the element, it'll always try to fit the element inside of the box.
 
@@ -45,7 +47,7 @@ Transform: translate
 But, on the transform here, when we translated, this is in relation to the element itself.
 And this makes it possible that the element is exactly at the center.
 
-## Animations
+### Animations
 
 it's best to only ever animate two different properties.
 
@@ -137,3 +139,145 @@ So we want to have a height of 100%. And we want to have a width of 100% as well
 
 ### `animation-fill-mode:backwards`
 is that it will automatically apply the styles up to zero percent before the animation starts. So, again, these styles will now be applied before the animation starts simply by using the animation fill mode and set it to backwards.
+
+## Section 3: How CSS Works
+
+### Three Pillars of Writing Good HTML and CSS
+
+* Responsive Design -  build one website that works beautifully across all screen sizes on all devices.
+
+
+        * Fluid layouts
+        * Media queries
+        * Responsive images
+        * Correct units
+        * Desktop-first vs mobile-first
+
+* Maintainable and scalable code
+
+        * How to organize files 
+        * How to name classes 
+        * How to structure HTML
+
+* Web performance - means to make it faster and to make it smaller in size, so that the user has to download less data.
+
+        * Less HTTP requests
+        * Less code
+        * Compress code
+        * Use a CSS preprocessor * Less images
+        * Compress images
+
+### How CSS Works Behind the Scenes
+
+#### What happens to CSS when we load up a webpage
+1. The browser loads the HTML code and parses it; this process builds the Document Object Model (DOM), which describes the entire web document.
+2. Using the links in the HTML header, the browser begins to load and parsed.
+   1. First the conflicting CSS declarations are resolved; a process call cascade
+   2. The device then calculates percentage and other relative units in the parsing phase.
+3. The final CSS is stored in a CSS Object Model (CSSOM);
+4. Both the DOM and the CSSOM are stored together to form the Render Tree
+5. In order to render the page, the browser uses the Visual Formatting Model, calculates box model, floats, and positioning
+
+### How CSS is Parsed, Part 1: The Cascade and Specificity
+
+CSS Rule - Consists of a Selector and Declaration block. Selector is used to select one or more HTML elements that we want to style. declaration block is where we write the actual styles in order to style elements on our page.  Each declaration consists of a CSS property
+and its corresponding value, which is the value that we assign to a property. 
+
+Cascade - Process of combining different stylesheets and resolving conflicts between CSS rules and declaration, when more than one rule applies to a certain element. There are differnt type of CSS:
+* Author - CSS written by coder
+* User - CSS added in the Dev Tools
+* Browser - Default
+
+Importance | Specificity | Source Order
+---------- | ----------- | ------------
+
+#### Importance
+01. User !important declarations
+2232323. Author !important declarations 
+77. Author declarations
+4. User declarations
+52222. Default browser declarations
+ 
+
+**Same importance?**
+
+vvvvvvvvv
+
+#### Calculating Specificity
+
+Specificity is calculated in the following rank
+1. Inline Styles
+2. IDs
+3. Classes, pseudo-classes, attribute
+4. Elements, pseudo-elements
+
+Each rule is tallies the occurance of item
+
+Example | Inline | IDs | Classes | Elements
+------- | ------ | --- | ------- | --------
+`#nav a.button:hover` | 0 | 1 | 2 | 1
+`nav#nav div.pull-right .button` | 0 | 1 | 2 | 2  
+
+The value of the winning declaration is called the cascaded value,
+
+`nav#nav div.pull-right .button` 
+
+**Same Specificity?**
+
+vvvvvvvvvvvv
+
+The last declaration within the code will override all other declarations and will be applied.
+
+#### Summary
+* CSS declarations marked with !important have the highest priority;
+* But, only use !important as a last resource. It’s better to use correct specificities more maintainable code!
+*  Inline styles will always have priority over styles in external stylesheets; 
+* A selector that contains 1 ID is more specific than one with 1000 classes; 
+* A selector that contains 1 class is more specific than one with 1000 elements; 
+* The universal selector * has no specificity value (0, 0, 0, 0); 
+* Rely more on specificity than on the order of selectors; 
+* But, rely on order when using 3rd-party stylesheets — always put your author stylesheet last.
+
+### How CSS is Parsed, Part 2: Value Processing
+
+HTML
+```
+<div class="section">
+        <p class="amazing"> CSS is absolutely amazing </p>
+</div>
+```
+CSS
+```
+   .section {
+        font-size: 1.5 rem;
+        width: 280px
+        background-color: orangered;
+   }
+
+   p {
+        width: 140px;
+        background-color: green;
+   }
+
+   .amazing {
+        width
+   }
+```
+
+Step | width (paragraph) | padding (paragraph)  | font-size (root) | font-size (section) | font-size (paragraph)
+------- | ------ | --- | ------- | -------- | --
+1. Declared value (authored) declarations | 140px | - | - | 1.5rem | -
+2. Cascaded value (after the cascade) | 66% | - | 16px (Browser default) | 1.5rem | -
+3. Specified value (defaulting, if there is no cascaded value) | 66% | 0px (Initial Value) | 16px | 1.5rem | 24px (inheritance)
+4. Computed value (converting relative values to absolute) | 66% | 0px | 16px | 24px (1.5 * 16px) | 24px
+5. Used value (final caluclations, based on layout) | 184.8px | 0px | 16px | 24px | 24px
+6. Actual value (browser and device restrictions) | 185px | 0px | 16px | 24px | 24px
+
+<br>
+
+<br>
+
+Each and every CSS property needs to have a value even if you don't even declare it at all. that's because each CSS property has something called an "initial value" which is simply the value used if there is no cascaded value. So basically, if we don't declare a value and if neither the browser nor the user define a value, then the initial value will be used. Actually, inheritance also plays a role her
+
+<br>
+`rem` unit is always relative to the root font-size,
