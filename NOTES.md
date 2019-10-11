@@ -281,3 +281,44 @@ Each and every CSS property needs to have a value even if you don't even declare
 
 <br>
 `rem` unit is always relative to the root font-size,
+
+#### How Units Are Converted From Relative To Absolute (px)
+
+```
+html, body {     
+   font-size: 16px;
+   width: 80vw;
+}
+
+header {
+  font-size: 150%; <-- % Font Calculation
+  padding: 2em;
+  margin-bottom: 10rem; <-- rem Calculation
+  height: 90vh;
+  width: 1000px;
+}
+
+.header-child {
+  font-size: 3em;
+  padding: 10% <--- % Length Calculation
+}
+```
+
+  Unit | Example | How to convert to pixels | Result in pixels
+ - | ------- | ------------------------ | ----------------
+ % (fonts) | 150% |  x% * parent's computed font-size | 24px (150% * 16px ) | 
+ % (lengths) | 10% | x% * parent's computed **width** | 100 px ( 10% * 1000px) | 
+ em (font) | 3em | x * PARENT computed font-size | 72px (3 * 24) <br> 24 comes from % (fonts) val | 
+ em (length) | 2em | x * CURRENT ELEMENT computed font-size | 48px (2 * 24) <br> 24 is inherited from `.header`| 
+ rem | 10rem | x * root computed font-size | 160px (10 * 16) | 
+ vh | 90vh | x * 1% of viewport height | 90% of the current viewport height| 
+ vw | 80vh | x * 1% of viewport width | 80% of the current viewport width| 
+
+<br>
+
+ * And there's a distinction between using percentages for fonts or for length or distance measurements.
+ * both ems and rems are font-based, but the difference between them is that `ems` **use the parent or the current element as a reference** while `rems` **use the root font-size as the reference.**
+   * For `em`:
+     * So for fonts, the reference is the parent.
+     * For length, the reference is the current element.
+   * For `rem` It actually works the same way for both font sizes and length because it always just uses the root font size as a reference.
