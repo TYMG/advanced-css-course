@@ -349,3 +349,40 @@ Setting the root font size to  10px is an easy way to calculate rem*, but settin
 
 Reason why box-sizing was moved from universal selector to the body
 > So whenever we can use inheritance, we should use it instead of using here something like the universal selector, and so what I'm going to do now is to remove this box-sizing from here and put it here on the body. So now we set the body to box-sizing border-box, and then in here what we do is to say box-sizing and we use the inherit keyword, and that's it. So remember how we could use the inherit keyword to force inheritance. That's what we're doing here. So the box-sizing property by itself is not inherited, but by setting the box-sizing property on each and every element on the entire page to inherit, it'll automatically inherit whatever we put here on border-box.
+
+ ### How CSS Renders a Website: The Visual Formatting Model
+
+Visual Formating Model - The Algorithm that calculates boxes and determines the layouts of boxes, for each element in the render tree in order to determine the final layout of the page.
+
+The algorithm takes into account the following factor
+* Dimensions of boxes: the box model;
+* Box type: inline, block and inline-block
+* Positioning scheme: floats and positioning;
+* Stacking contexts;
+* Other elements in the render tree
+* Viewport size, dimensions of images, etc;
+
+#### Box Model
+
+![The Box Model](./Slides/snippets/Box-model.png)
+
+total width = right border + right padding + specified width + left padding + left border
+total height = top border + top padding + specified height + bottom padding + botton border
+
+example = height = 0 + 20px + 100px + 20px + 0 = 140px
+
+> This means that whenever we define a width or a height of a box, the padding and border get added to what we defined.
+
+
+![box-sizing: border-box](./Slides/snippets/Box-sizing-border-box.png)
+
+To fix the issue of how the height and width are calculated, the `box-sizing` property of the div can be set to `border-box`.
+
+So, if we set box sizing to border box, the height and the width will be defined for the entire box including the padding and the border and not just for the content area. What this means, at the same time is that the paddings and borders that we specify, will of course reduce the inner width of the content area, instead of adding them to the total height or width of an element.
+
+In this case, the actual total width of a box is equal to the specified width. And the same goes for the height. So, if we now define some paddings or borders, they will not get added to the dimensions of the box.
+
+total width =  specified width 
+total height =  specified height 
+
+example = height = 100px = 140px
