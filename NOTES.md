@@ -322,3 +322,30 @@ header {
      * So for fonts, the reference is the parent.
      * For length, the reference is the current element.
    * For `rem` It actually works the same way for both font sizes and length because it always just uses the root font size as a reference.
+
+### How CSS is Parsed, Part 3: Inheritance
+
+![Inheritence Decision Chart](Slides/snippets/Inheritance-in-css.png)
+
+* Inheritance passes the values for some specific properties from parents to children — more maintainable code;
+* Properties related to text are inherited: font-family, font-size, color, etc; 
+* The computed value of a property is what gets inherited, not the declared value.
+* Inheritance of a property only works if no one declares a value for that property;
+* The inherit keyword forces inheritance on a certain property;
+* The initial keyword resets a property to its initial value.
+
+### Converting px to rem: An Effective Workflow
+
+Why use rem?
+> It's because we want an easy way to change all the measurements on our page with one simple setting
+
+So you remember how the rem unit is always in relation to the root font size, right?
+
+So if the root font-size 10px, then 1 rem = 10px
+
+Setting the root font size to  10px is an easy way to calculate rem*, but setting the font size based on percentage is a better pratics. If the default font-size is 16px
+    so for 10 px => 62.5% of 16px
+
+
+Reason why box-sizing was moved from universal selector to the body
+> So whenever we can use inheritance, we should use it instead of using here something like the universal selector, and so what I'm going to do now is to remove this box-sizing from here and put it here on the body. So now we set the body to box-sizing border-box, and then in here what we do is to say box-sizing and we use the inherit keyword, and that's it. So remember how we could use the inherit keyword to force inheritance. That's what we're doing here. So the box-sizing property by itself is not inherited, but by setting the box-sizing property on each and every element on the entire page to inherit, it'll automatically inherit whatever we put here on border-box.
