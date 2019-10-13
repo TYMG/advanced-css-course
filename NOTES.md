@@ -386,3 +386,38 @@ total width =  specified width
 total height =  specified height 
 
 example = height = 100px = 140px
+
+#### Box Types
+![Box Types](./Slides/snippets/Box-types.png)
+
+#### Position
+![Positioning Schemes](./Slides/snippets/Positioning&#32;Schemes.png)
+
+
+### CSS Architecture, Components and BEM
+
+#### BEM
+
+**B**lock **E**lement **M**odifier
+* BLOCK: standalone component that is meaningful on its own. 
+* ELEMENT: part of a block that has no standalone meaning. 
+* MODIFIER: a different version of a block or an element.
+
+```
+.block {}
+.block__element {}
+.block__element--modifier {}
+```
+
+#### The 7-1 Pattern
+
+7 different folder for partial Sass files, and 1 main Sass file toimport all other in a compiled CSS stylesheet.
+
+The 7 Folders:
+* base/
+* components/
+* layout/
+* pages/
+* themes/
+* abstracts/ - where we put code that doesn't output any CSS, such as variables or mix-ins,
+* vendor/ - all third party CSS goes.
