@@ -1,3 +1,7 @@
+[TOC]
+
+
+
 ## Section 2: Natours Project (Part 1) 
 
 `background-size: cover;`
@@ -101,7 +105,7 @@ And we want it to move up so we use a negative value
  #### `transition: all` and Pseudo-Elements
  The `transition: all` property has to be on the initial state
 
- ---
+---
  Button click css
  ```
  .btn:link,
@@ -121,7 +125,7 @@ And we want it to move up so we use a negative value
     transform: translateY(-1px);
     box-shadow: 0 5px 10px rgba(0,0,0,.2);    
 }
-```
+ ```
 ---
 
 ### `::after` Pseudo Element Requirements
@@ -197,7 +201,7 @@ Importance | Specificity | Source Order
 77. Author declarations
 4. User declarations
 52222. Default browser declarations
- 
+
 
 **Same importance?**
 
@@ -284,7 +288,7 @@ Each and every CSS property needs to have a value even if you don't even declare
 
 #### How Units Are Converted From Relative To Absolute (px)
 
-```
+```css
 html, body {     
    font-size: 16px;
    width: 80vw;
@@ -421,3 +425,472 @@ The 7 Folders:
 * themes/
 * abstracts/ - where we put code that doesn't output any CSS, such as variables or mix-ins,
 * vendor/ - all third party CSS goes.
+
+
+## Section 4: Introduction to Sass and NPM
+
+### What is SASS
+
+Sass is a CSS preprocessor, an extension of CSS that adds power and elegance to the basic language.
+
+* Variables: for reusable values such as colors, font-sizes, spacing, etc;
+* Operators: for mathematical operations right inside of CSS;
+* Partials and imports: to write CSS in different files and importing them all into one single file;
+* Mixins: to write reusable pieces of CSS code;
+* Functions: similar to mixins, with the difference that they produce a value that can than be used; Extends: to make different selectors inherit declarations that are common to all of them;
+* Control directives: for writing complex code using conditionals and loops (not covered in this course).
+
+#### First Steps with Sass: Variables and Nesting
+
+That is how SASS identifies variables, always starting with this dollar sign.
+
+` .navigation li {}`
+
+could be written as
+
+```
+.navigation { 
+   li {
+
+   }
+}
+```
+
+Also
+
+```
+  li {
+    display: inline-block;
+    margin-left:30px;
+  }
+  
+  li:first-child{
+    margin: 0;
+  }
+```
+
+  can be written as 
+
+  ```
+    li {
+    display: inline-block;
+    margin-left:30px;
+  
+        &:first-child{
+        margin: 0;
+        }
+    }
+  ```
+  Where the `&` writes the selector path up until that point.
+
+Without the ampersand, the css would be compiled as `li :first-child`
+
+Note:
+
+> When all child elements of a component are floating, the element collapses and loses its heigth,
+
+To fix this issue add
+
+```
+&::after {
+  content: "";
+  clear: both; <--- This is important
+  display:table;
+}
+```
+
+There is a SASS color function that is used to make colors darker
+
+`background-color:darken($color-var,15%)`
+
+
+Final SASS Vs CSS
+
+##### SASS
+```scss
+* {
+  margin: 0;
+  padding: 0;
+}
+
+$color-primary: #f9ed69; //yellow color
+$color-secondary: #f08a5d; //orange
+$color-tertiary: #b83b5e; //pink
+$color-text-dark: #333;
+$color-text-light: #eee;
+
+
+$width-button:150px;
+
+nav {
+  margin: 30px;
+  background-color: $color-primary;
+
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+
+.navigation {
+  list-style: none;
+  float: left;
+  li {
+    display: inline-block;
+    margin-left: 30px;
+
+    &:first-child {
+      margin: 0;
+    }
+
+    a:link {
+      text-transform: uppercase;
+      text-decoration: none;
+      color: $color-text-dark;
+    }
+  }
+}
+
+.buttons {
+  float: right;
+}
+
+.btn-main:link,
+.btn-hot:link{
+  padding:10px;
+  display:inline-block;
+  text-align: center;
+  border-radius: 100px;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: $width-button;
+  color:$color-text-light;
+}
+
+.btn-main {
+  &:link {
+    background-color: $color-secondary;
+  }
+  
+  &:hover {
+    background-color: darken($color-secondary, 15%)
+  }
+}
+
+.btn-hot {
+  &:link {
+    background-color: $color-tertiary;
+  }
+  
+  &:hover {
+    background-color: darken($color-tertiary, 15%)
+  }
+}
+```
+---
+##### Compiled CSS
+```css
+* {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  margin: 30px;
+  background-color: #f9ed69;
+}
+nav::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.navigation {
+  list-style: none;
+  float: left;
+}
+.navigation li {
+  display: inline-block;
+  margin-left: 30px;
+}
+.navigation li:first-child {
+  margin: 0;
+}
+.navigation li a:link {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #333;
+}
+
+.buttons {
+  float: right;
+}
+
+.btn-main:link,
+.btn-hot:link {
+  padding: 10px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 100px;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 150px;
+  color: #eee;
+}
+
+.btn-main:link {
+  background-color: #f08a5d;
+}
+.btn-main:hover {
+  background-color: #ea5717;
+}
+
+.btn-hot:link {
+  background-color: #b83b5e;
+}
+.btn-hot:hover {
+  background-color: #7e2840;
+}
+```
+
+
+#### First Steps with Sass: Mixins, Extends and Functions
+
+What is a Mixin?
+
+A Mixing is a reusable piece of SASS code that be used anywhere within the code
+
+`@mixin` is the keyword used to declare a mixin
+
+`@include` is the keyword used to use the mixin later in the code
+
+
+```@mixin clearfix {
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+```
+Ex:   `@include clearfix;`
+
+Mixins can have arguments as well
+
+```
+@mixin style-link-text($color) {
+  text-transform: uppercase;
+  width: $width-button;
+  color: $color;
+}
+```
+
+What is a function?
+
+A Function is also a reuable piece of SASS code, but one that used for calculations
+
+
+What is extends?
+
+Extends are Basically a placeholder where a bunch of styles coexist and can be used by other elements by extending that place holder.
+
+To create a Extend, use the % symbol
+
+Ex %btn-placeholder
+
+The difference between a Mixin and Extends
+
+The biggest difference between a Mixin and Extends is that when using the Mixin, the code from the mixin is copied to the selctor that is using the Mixin. On the other hand, when using extends, **the selector that is using the Extends is copied to the rule**
+
+From: [When to user extend; When to use a Mixin](https://csswizardry.com/2014/11/when-to-use-extend-when-to-use-a-mixin/)
+>It is important to realise that @extend creates relationships. Whenever you use @extend, you are transplanting a selector elsewhere in your stylesheet in order for it to share traits with other selectors that are also being transplanted. As a result, you are dictating that these selectors all share a relationship, and misusing @extend can create relationships around the wrong criterion. It would be like grouping your CD collection by the colour of their covers: doable, but not a useful relationship to create.
+
+Final SASS Vs CSS
+
+##### SASS
+```scss
+* {
+  margin: 0;
+  padding: 0;
+}
+
+$color-primary: #f9ed69; //yellow color
+$color-secondary: #f08a5d; //orange
+$color-tertiary: #b83b5e; //pink
+$color-text-dark: #333;
+$color-text-light: #eee;
+
+$width-button: 150px;
+
+@mixin clearfix {
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+
+@mixin style-link-text($color) {
+  text-transform: uppercase;
+  width: $width-button;
+  color: $color;
+}
+
+nav {
+  margin: 30px;
+  background-color: $color-primary;
+
+  @include clearfix;
+}
+
+.navigation {
+  list-style: none;
+  float: left;
+  li {
+    display: inline-block;
+    margin-left: 30px;
+
+    &:first-child {
+      margin: 0;
+    }
+
+    a:link {
+      text-transform: uppercase;
+      text-decoration: none;
+      color: $color-text-dark;
+    }
+  }
+}
+
+.buttons {
+  float: right;
+}
+
+%btn-placeholder {
+  padding: 10px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 100px;
+  text-decoration: none;
+  @include style-link-text($color-text-light);
+}
+
+.btn-main {
+  &:link {
+    @extend %btn-placeholder; <-- Uses Extends
+    background-color: $color-secondary;
+  }
+
+  &:hover {
+    background-color: darken($color-secondary, 15%);
+  }
+}
+
+.btn-hot {
+  &:link {
+    @extend %btn-placeholder; <-- Uses Extend
+    background-color: $color-tertiary;
+  }
+
+  &:hover {
+    background-color: darken($color-tertiary, 15%);
+  }
+}
+```
+
+Final Compiled CSS 
+```CSS
+* {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  margin: 30px;
+  background-color: #f9ed69;
+}
+nav::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.navigation {
+  list-style: none;
+  float: left;
+}
+.navigation li {
+  display: inline-block;
+  margin-left: 30px;
+}
+.navigation li:first-child {
+  margin: 0;
+}
+.navigation li a:link {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #333;
+}
+
+.buttons {
+  float: right;
+}
+
+.btn-main:link, .btn-hot:link {  <--- Note that the two selectors that used the %btn-placeholder were copied to the rule itself
+  padding: 10px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 100px;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 150px;
+  color: #eee;
+}
+
+.btn-main:link {
+  background-color: #f08a5d;
+}
+.btn-main:hover {
+  background-color: #ea5717;
+}
+
+.btn-hot:link {
+  background-color: #b83b5e;
+}
+.btn-hot:hover {
+  background-color: #7e2840;
+}
+```
+
+#### A Brief Intro to the Command Line (Skipped)
+
+#### NPM Packages: Let's Install Sass Locally (Skipped)
+
+#### NPM Scripts: Let's Write and Compile Sass Locally
+
+##### Sass actually supports two syntaxes  which can be specified using the proper file extension:
+
+* SCSS
+
+  The SCSS syntax uses the file extension `.scss`. With a few small exceptions, it’s a superset of CSS, which means essentially **all valid CSS is valid SCSS as well**. Because of its similarity to CSS, it’s the easiest syntax to get used to and the most popular.
+
+* The Indented Syntax
+
+  The indented syntax was Sass’s original syntax, and so it uses the file extension `.sass`. Because of this extension, it’s sometimes just called “Sass”. The indented syntax supports all the same features as SCSS, but it uses indentation instead of curly braces and semicolons to describe the format of the document.
+
+  In general, any time you’d write curly braces in CSS or SCSS, you can just indent one level deeper in the indented syntax. And any time a line ends, that counts as a semicolon. There are also a few additional differences in the indented syntax that are noted throughout the reference.
+
+When writing SCSS code, it eventually needs to be compiled. As a workaround, a **node-sass** has a 'watch' feature that looks for live changes and recompile the scss into css.
+
+```json
+"scripts": {
+  "compile:sass": "node-sass sass/main.scss css/style.css -w"
+}
+```
+
+To run in the cmd line:
+
+`npm run compile:sass`
+
+####  The Easiest Way of Automatically Reloading a Page on File Changes (Skipped)
