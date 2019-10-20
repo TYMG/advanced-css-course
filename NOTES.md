@@ -2,7 +2,7 @@
 
 
 
-## Section 2: Natours Project (Part 1) 
+## Section 2: Natours Project (Part 1)
 
 `background-size: cover;`
 And what cover does is that whatever the width of the viewport, or the element, it'll always try to fit the element inside of the box.
@@ -894,3 +894,37 @@ To run in the cmd line:
 `npm run compile:sass`
 
 ####  The Easiest Way of Automatically Reloading a Page on File Changes (Skipped)
+
+## Section 5: Natours Project - Using Advanced CSS and Sass (Part 2)
+
+### Converting Our CSS Code to Sass: Varaibles and Nesting
+
+When developing, its best to have one terminal running `live-server` and another running `npm run compile:sass` to ensure the sass is compiled into CSS
+
+#### Using & when nesting selecotor
+
+It is a good practice to nest selectors in order to organized the code. When nesting selectors, the ampersand can be used to replace the parent selector.
+
+```
+.text {
+	text-decoration:none;
+	&:hover {
+		color:purple
+	}
+}
+```
+
+
+
+Which translates to `text` and  `.text:hover`
+
+### Implementing the 7-1 CSS Architecture with Sass
+
+#### Base
+
+##### Partial Files
+
+Partial files always start with underscores. And to import use the `@import` keyword at the top of the file the partial of is being imported in to.
+
+
+
