@@ -978,3 +978,82 @@ Layout Types:
 * Float Layouts - where we simply put a bunch of boxes side by side, using floats,
 * Flexbox - Capable of laying out elements in a one dimensional row,
 * CSS Grid - perfect for creating the overall layout of a page in a fully-fledged 2D grid,
+
+### Building a Custom Grid with Floats
+
+Standard Convention for implementing a row is to set the `max-width` 1,140 pixels. But its better to use Rems not pixels. SO where 10 pixels equals on rem, so 1140/10 = 114rem
+
+#### Difference between `max-width` and `width` 
+
+> So max-width means is that if we have enough available space, then it will have the width that we specified but if there is not enough width, so basically if the viewport is smaller than width that we specified here, so in this case, if the viewport is smaller than 114 rem, then it will simply fill 100% of the available space
+
+#### [Tip] Centering Block Elements That Are Inide Another Block Element
+
+> So what we do is margin, zero, and auto.
+
+Meaning the top and bottom are zero and the left and right margins are auto.
+
+```scss
+.row {
+	max-width: 114rem;
+	background-color: #eee;
+	margin: 0 auto; <-- Centers Block Elements
+}
+```
+
+Explanation:
+
+> Why does that actually work? When we say that we want the margin to be automatically, this means that the browser, when rendering the page, will automatically figure out the margin that we want on the left and on the right side, right? And since it's both set to auto, it means that left and right will be the same, and CSS will automatically calculate the left margin and the right margin, and they will be the same, and so of course, the element will be centered,
+
+#### `:not()` Pseudo Selector
+
+The :**not**() CSS **pseudo**-class represents elements that do **not** match a list of selectors. Since it prevents specific items from being selected, it is known as the negation **pseudo**-class
+
+Example:
+
+`&:not(:last-child) `
+
+Now what the not does here is that it simply does the opposite, so we select everything except the last child. It's basically just the opposite. Instead of selecting the last child,we select everything except the last child,
+
+#### The CSS `calc()` function
+
+In CSS, there is an extremely powerful function which is called calc. In here, you can do mathematical operations, and you can actually mix units in here.
+
+The big difference between doing native CSS calculations or doing them in Sass because in Sass, we can also do operations of course but we cannot do them with multiple units, so we cannot for example mix rem with pixels, with percentages. It's actually pretty logical why it is that way. **It is so because we compile our Sass file while we're developing the page, so even before the page is served of course to the user but this kind of calculation all depends on the layout, so it has to happen while the website is rendered using the visual formatting model.** That's when these calculations can occur because it's only then when CSS and when the browser knows what the percentage is, what the rem is, 
+
+To use SCSS Variables in the `calc()` function, wrap the variable in curly brackets and prefix with a `#`
+
+Example:  `width: calc((100% - #{$gutter-horizontal})/2);`
+
+#### [Tip] Clearfix: Part 2
+
+> Now just one thing that I want to show you is that this row here has a zero-pixel height, and I'm sure you know why that happens, and it is because all of the child elements of this row element are floated, and so the height collapses and becomes zero. What do we do against that? That's right. We use the clearfix hack.
+>
+> What the clearfix does is to append a pseudo element after the element which will then clear these floats.
+
+```scss
+@mixin clearfix {
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+```
+
+#### The Attribute Selector <— **SUPER IMPORTANT!!**
+
+The CSS **attribute selector** matches elements based on the presence or value of a given attribute.
+
+Syntax:
+* `[*attr*]` Represen - ts elements with an attribute name of *attr*.
+* `[*attr*=*value*]`  - 
+Represents elements with an attribute name of *attr* whose value is exactly *value*.
+* `[*attr*~=*value*]` -  
+Represents elements with an attribute name of *attr* whose value is a whitespace-separated list of words, one of which is exactly *value*.
+* `[*attr*|=*value*]` -  
+Represents elements with an attribute name of *attr* whose value can be exactly *value* or can begin with *value* immediately followed by a hyphen, `-` (U+002D). It is often used for language subcode matches.
+* `[*attr*^=*value*]` -  
+Represents elements with an attribute name of *attr* whose value is prefixed (preceded) by *value*.
+* `[*attr*$=*value*]` -  
+Represents elements with an attribute name of *attr* whose value is suffixed (followed) by *value*.
