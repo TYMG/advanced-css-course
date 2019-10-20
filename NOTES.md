@@ -926,5 +926,55 @@ Which translates to `text` and  `.text:hover`
 
 Partial files always start with underscores. And to import use the `@import` keyword at the top of the file the partial of is being imported in to.
 
+![box-sizing: border-box](./Slides/7-1 code layout.png)
 
+ The purpose of the main.scss file is to import the other partials.
 
+* _base.scss
+
+  The _base.scss class should contain the base definitions for the entire project 
+
+  Example
+
+  ```scss
+  *,
+  *::after,
+  *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+  }
+  
+  html {
+    font-size: 62.5%;
+    /* */
+  }
+  
+  body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    /*     font-size: 16px; */
+    line-height: 1.7;
+    color: $color-grey-dark;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  ```
+
+* _typography.scss
+
+  For Items related to fonts
+
+### Review: Basic Principles of Responsive Design and Layout Types
+
+Basic Responsive Design Principles
+
+1. Fluid Grid And Layout  - To allow content to easily adapt to the current viewport width used to browse the website. Uses % rather than `px` for all layout-related
+2. Flexible/Responsive Images - Images behave differently than text content, and so we need to ensure that they also adapt nicely to the current viewport.
+3. Media Queries - To change styles on certain viewport widths (breakpoints), allowing us to created different version of out websitr for different widths.
+
+Layout Types:
+
+* Float Layouts - where we simply put a bunch of boxes side by side, using floats,
+* Flexbox - Capable of laying out elements in a one dimensional row,
+* CSS Grid - perfect for creating the overall layout of a page in a fully-fledged 2D grid,
