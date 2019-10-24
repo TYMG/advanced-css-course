@@ -1057,3 +1057,63 @@ Represents elements with an attribute name of *attr* whose value can be exactly 
 Represents elements with an attribute name of *attr* whose value is prefixed (preceded) by *value*.
 * `[*attr*$=*value*]` -  
 Represents elements with an attribute name of *attr* whose value is suffixed (followed) by *value*.
+
+### Building The About Section - Part 1
+
+HTML 5 Elements
+
+* Main - Specifies the main content for browsers
+
+#### [Tip] Creating Gradient Effects Inside Text
+
+```
+display: inline-block;
+-webkit-background-clip: text;
+color:transparent;
+```
+
+Remember block-level elements take up the entire width of the parent container, use `inline-block` to get the best of both worlds
+
+#### [Tip] Using Utlity Classes
+
+Using one off classes in the _utlties files is a great way to have specific repeatable css code.
+
+### Building The About Section - Part 2
+
+#### [Tip] Creating 3D Button Clicks
+
+The trick to 3D Buttons is the use of hover and active pseudo-classes; Both classes use `box-shadow` and the `transform` property to give the illusion of a button click. Note that 'parent' component must have the `transition` property.
+
+```scss
+.btn-text {
+    &:link,
+    &:visited {
+        font-size: $default-font-size;
+        color: $color-primary;
+        display: inline-block;
+        text-decoration: none;
+        border-bottom: 1px solid $color-primary;
+        padding: 3px;
+        transition: all 0.2s;
+    }
+
+    &:hover{
+        background-color:$color-primary;
+        color: $color-white;
+        box-shadow: 0 1rem 2rem rgba($color-black,.15);
+        transform: scaleY(-2px);
+    }
+
+    &:active{ 
+        box-shadow: 0 .5rem 1rem rgba($color-black,.15);
+        transform: scaleY(0px);
+    }
+}
+```
+
+
+
+
+
+
+
