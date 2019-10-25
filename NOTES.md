@@ -1066,10 +1066,13 @@ HTML 5 Elements
 
 #### [Tip] Creating Gradient Effects Inside Text
 
-```
-display: inline-block;
--webkit-background-clip: text;
-color:transparent;
+```scss
+.class{
+  background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+  display: inline-block;
+  -webkit-background-clip: text;
+  color:transparent;
+}
 ```
 
 Remember block-level elements take up the entire width of the parent container, use `inline-block` to get the best of both worlds
@@ -1119,5 +1122,19 @@ The trick to 3D Buttons is the use of hover and active pseudo-classes; Both clas
 
 > So, position: absolute, and remember when we set the position to absolute on an element, these elements will be placed according to a reference and the reference is the first parent it encounters, which has its position set to something. Now, since we want this reference to be the composition, so we want it to be positioned according to the composition element, of course. We set this one to position; relative. Okay, and so now this says position; relative and **so the reference 0,0 coordinate will be on the top left corner of the composition element**, right?
 
-[Oper]`left` vs
+### Building the Features Section
+
+#### [Tip] Creating a Color Gradient
+
+```scss
+ background-image: linear-gradient(to right bottom, first-color,second-color),
+      url(../img/nat-4.jpg);
+      background-size: cover;
+```
+
+#### Direct Child Selector
+
+The **child combinator** (`>`) is placed between two CSS selectors. It matches only those elements matched by the second selector that are the children of elements matched by the first.
+
+Note that the Child Select will select the first child it comes across, but will not make changes to grand-children
 
