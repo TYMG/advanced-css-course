@@ -1138,3 +1138,27 @@ The **child combinator** (`>`) is placed between two CSS selectors. It matches o
 
 Note that the Child Select will select the first child it comes across, but will not make changes to grand-children
 
+
+
+### Building the Tours Section - Part 1
+
+#### Perspective
+
+> The **perspective** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property determines the distance between the z=0 plane and the user in order to give a 3D-positioned element some perspective. Each 3D element with z>0 becomes larger; each 3D-element with z<0 becomes smaller. The strength of the effect is determined by the value of this property.
+
+Please note: 
+
+So the perspective has to be on the parent.
+
+Also the lower the perspective value, the more dramatic effect will be seen
+
+[;]: ;
+
+The `backface-visibility` property  hides the back part of an element.
+
+`backface-visibility:hidden`
+
+
+
+
+
