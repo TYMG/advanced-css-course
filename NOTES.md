@@ -1100,7 +1100,7 @@ The trick to 3D Buttons is the use of hover and active pseudo-classes; Both clas
     &:hover{
         background-color:$color-primary;
         color: $color-white;
-        box-shadow: 0 1rem 2rem rgba($color-black,.15);
+        box-shadow: 0 1rem 2rem rgba($color-black,.25); <-- More Opacity Here Makes Click More Pronounced
         transform: scaleY(-2px);
     }
 
@@ -1113,7 +1113,11 @@ The trick to 3D Buttons is the use of hover and active pseudo-classes; Both clas
 
 
 
+### Building The About Section - Part 3
 
+#### [Reminder] `position:absolute`
 
+> So, position: absolute, and remember when we set the position to absolute on an element, these elements will be placed according to a reference and the reference is the first parent it encounters, which has its position set to something. Now, since we want this reference to be the composition, so we want it to be positioned according to the composition element, of course. We set this one to position; relative. Okay, and so now this says position; relative and **so the reference 0,0 coordinate will be on the top left corner of the composition element**, right?
 
+[Oper]`left` vs
 
