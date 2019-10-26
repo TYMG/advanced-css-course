@@ -1158,7 +1158,32 @@ The `backface-visibility` property  hides the back part of an element.
 
 `backface-visibility:hidden`
 
+### Building the Tours Section - Part 2
+
+#### [unsplash: Free Photos](https://unsplash.com/)
+
+#### Background Blend Modes
+
+> the background blend mode property describes how the elements, background images, should blend.
+
+Mimic effects that can be seen in photo editor. Can't be used with IE and Edge as browser
+
+#### [Tip] Using the hidden property
+
+Using the hidden property to hide overflowing content
+
+#### Box decoration break
+
+> The **box-decoration-break** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property specifies how an element's [fragments](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fragmentation) should be rendered when broken across multiple lines, columns, or pages.
 
 
 
+### Building the Tours Section - Part 3
 
+#### [Tip] Clip Path Breaking Overflow Property In Google Chrome
+
+> And that actually happens because of the clear path property that we used here. So this clear path in Google Chrome, the breaks the over flow that we sat for that. So remember, we actually sat the overflow hidden so that these corners that are overflowing the parent element are actually hidden. But for some reason when we then use the clear path here on that very image, then the overflow no longer works. So we have to now set this manually,
+
+So to fix this issue, the border-radius has to be set on the selector that is setting the clip-path property
+
+#### 
