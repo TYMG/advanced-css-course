@@ -1172,7 +1172,7 @@ Mimic effects that can be seen in photo editor. Can't be used with IE and Edge a
 
 Using the hidden property to hide overflowing content
 
-#### Box decoration break
+#### `box-decoration-breeak` property
 
 > The **box-decoration-break** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property specifies how an element's [fragments](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fragmentation) should be rendered when broken across multiple lines, columns, or pages.
 
@@ -1186,4 +1186,76 @@ Using the hidden property to hide overflowing content
 
 So to fix this issue, the border-radius has to be set on the selector that is setting the clip-path property
 
-#### 
+### Building the Stories Section - Part 1
+
+ **Section Goals**
+
+* How to make text flow around shapes with shape-outside and float; 
+* How to apply a filter to images;
+*  How to create a background video covering an entire section; 
+* How to use the <video> HTML element;
+* How and when to use the object-fit property. 
+
+#### `shape-outside` property
+
+>  The **shape-outside** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property defines a shape—which may be non-rectangular—around which adjacent inline content should wrap. By default, inline content wraps around its margin box; `shape-outside` provides a way to customize this wrapping, making it possible to wrap text around complex objects rather than simple boxes.
+
+**In order to for the shape-outside property to work, the selector needs to be floated, given a height and height** 
+
+#### The circle() function
+
+`shape-outside: circle(50% at 50% 50%)`
+
+> So, a circle, and in here we can define the size of the circle and the position of the center of the circle. How does that work? Well the first number we put here is actually the radius of the circle, and so if we say 50%, then the radius will be half the height and the width of the element and so in this case that will be seven point five rem and so if the radius is seven point five rem then the diameter of the circle will, of course, be 15 and that's exactly the size of the shape here, right? And then we say at 50% 50% because that means that is the center of the circle so exactly the center horizontally and vertically
+
+#### [Reminder] Responsive Images Width Size
+
+**So remember once again, flexible images for responsive web design, they always need a dimesion to be set.**
+
+#### [Reminder] Multiple instances of Transform Property
+
+When you have multiple transform directives, only the last one will be applied. It's like any other CSS rule.
+
+### Building the Stories Section - Part 2
+
+#### [Reminders] Previous Reviewed Concepts
+
+Using Position: Absolute with Top, Left and Transform: Translate to align content: [Reminder from earlier](#block level elements)
+
+Using `backface-visibility` to fix small animation errors: [Reminder from earlier](#`backface-visibility:hidden`) 
+
+#### `filter` property
+
+> The **filter** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property applies graphical effects like blur or color shift to an element. Filters are commonly used to adjust the rendering of images, backgrounds, and borders.
+
+[MDN Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/filter)
+
+### Building the Stories Section - Part 3
+
+#### Creating Video Backgrounds
+
+First start by creating a HTML5 video element. But, instead of using the src attribute here in the video tag like we would do with an image, there's actually a source tag in HTML which allows us to embed a video file into this video element, okay?
+
+
+
+```html
+<video class="bg-video_content" autoplay muted loop>
+  <source src="img/video.mp4" type="video/mp4">
+  <source src="img/video.webm" type="video/webm">
+</video>
+```
+
+Things to note:
+
+* Having the src attribute on the video elements prevents the other source elements from loading
+* Autoplay, muted, and loop are properties of the video elements
+
+Note: Videos from project were source [Cover.co](https://coverr.co/)
+
+The opcatiy of the video itself was change by adding small opacity to the `.bg-video`
+
+#### Fixing Video Dimensions and Aspect Ratio
+
+In order for a video encompass an entire section here, but also while maintaining the aspect ratio? There is a quite new property which allows us to do exactly that with CSS. And it's called object-fit. And when we set object-fit to cover, then this is actually pretty similar to the background size cover, which we do all the time with the background images, right? So, what object-fit cover will do is that the element, and so in this case, the video, will fill the entire parent while still maintaining its aspect ratio.
+
+[MDN Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit)
