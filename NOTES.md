@@ -1259,3 +1259,172 @@ The opcatiy of the video itself was change by adding small opacity to the `.bg-v
 In order for a video encompass an entire section here, but also while maintaining the aspect ratio? There is a quite new property which allows us to do exactly that with CSS. And it's called object-fit. And when we set object-fit to cover, then this is actually pretty similar to the background size cover, which we do all the time with the background images, right? So, what object-fit cover will do is that the element, and so in this case, the video, will fill the entire parent while still maintaining its aspect ratio.
 
 [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit)
+
+### Building the Booking Section - Part 1
+
+ **Section Goals**
+
+* How to implement “solid-color gradients”;
+* How the general and adjacent sibling selectors work and why we need them;
+* How to use the ::input-placeholder pseudo-element;
+* How and when to use the :focus, :invalid, placeholder-shown and :checked pseudo- classes;
+* Techniques to build custom radio buttons.
+
+##### [Tip] Background Size: 100% vs Cover
+
+>  And, actually, 100% here means the exact same thing as cover. And, that's because cover stretches the image to occupy the entire container, where the background-image is applied. And, that's what 100% does.
+
+##### Using Percentages to Customize Linear Gradient
+
+> By default, colors transition smoothly from the color at one color stop to the color at the subsequent color stop, with the midpoint between the colors being the half way point between the color transition. You can move this midpoint to any position between two color stops by adding an unlabelled % color hint between the two colors to indicate where the middle of the color transition should be. The following example is solid red from the start to the 10% mark and solid blue from 90% to the end. Between 10% and 90% the color transitions from red to blue, however the midpoint of the transition is at the 30% mark rather than 50% as would have happened without the 30% color hint.
+
+```css
+linear-gradient(red 10%, 30%, blue 90%);
+```
+
+[MDN Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient)
+
+###### Using Customized Linear Gradients to create 'solid-color-gradients'
+
+```scss
+ background-image: linear-gradient(105deg, rgba($color-white, .9) 0%, rgba($color-white, .9) 50%, transparent 50%), url(../../img/nat-10.jpg);
+```
+
+How this works: Using the percentages, a hardline is created at the 50% mark due to two colors having the same transition value. The angle of the line is determined by the degrees i.e. 105deg
+
+### Building the Booking Section - Part 2
+
+#### `webkit-input-placeholder` property
+
+> The **::placeholder** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) [pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements) represents the [placeholder text](https://developer.mozilla.org/en-US/docs/Web/HTML/Forms_in_HTML#The_placeholder_attribute) in an [`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) or [`<textarea>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) element.
+
+#### `:valid` and `:invalid` Pseudo Class
+
+The **:valid** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) [pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes) represents anyn an [`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) or [`<textarea>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) element whose contents [validate](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation) successfully. This allows to easily make valid fields adopt an appearance that helps the user confirm that their data is formatted properly.
+
+#### `:placeholde-shown` Pseudo Class
+
+> The **:placeholder-shown** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) [pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes) represents any[`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) or [`<textarea>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea)element that is currently displaying [placeholder text](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-placeholder).
+
+#### Sibling Selectors
+
+There are two different types of CSS Selectors
+
+* Adjacent Selector ( **+** )
+
+  >The adjacent sibling selector selects all elements that are the adjacent siblings of a specified element. Sibling elements must have the same parent element, and "adjacent" means "immediately following".
+
+  ```
+  div + p {
+    background-color: yellow;
+  }
+  ```
+
+  The following example selects all <p> elements that are placed immediately after <div> elements:
+
+* General Selector ( **~** )
+
+  > The general sibling selector selects all elements that are siblings of a specified element.
+
+```
+div ~ p {
+	background-color: yellow;
+}
+```
+
+The following example selects all <p> elements that are siblings of <div> elements: 
+
+#### [Tip] `Opacity` vs `Visibility` 
+
+> So, opacity zero, and then another thing that we should do is to set the visibility to hidden. **That's because if we just set the opacity to zero, then the element will basically still be on the page, but only invisible, but if we set it to visibility hidden as well, well, then it's really gone.** So why don't we just use the visibility hidden without the opacity? Well, because **we cannot animate the visibility**, okay? That's how we use the opacity, because we actually want to animate this effect,
+
+#### [Reuse] Labels Appears when Inputs Are Typed
+
+```html
+<form action="" class="form">
+  <div class="form__group">
+    <input type="text" class="form__input" placeholder="Full Name" id="name">
+    <label for="name" class="form__label">Full Name</label>
+  </div>
+  <div class="form__group">
+    <input type="email" class="form__input" placeholder="Email Address" id="email" required>			<label for="email" class="form__label">Email Address</label>
+  </div>
+</form>
+```
+
+
+
+```scss
+.form {
+    &__group:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+
+    &__input {
+        font-size: 1.5rem;
+        font-family: inherit;
+        color: inherit;
+        padding: 1.5rem 2rem;
+        border-radius: 5px;
+        background-color: rgba($color-white,.5);
+        border: none;
+        border-bottom: 3px solid transparent;
+         transition: all .3s;
+
+        &:focus {
+            outline:none;
+            box-shadow: 0 1rem 2rem rgba($color-black,.1);
+            border-bottom: 3px solid $color-primary;
+        }
+        &:focus:invalid {
+            border-bottom: 3px solid $color-secondary-dark;
+        }
+
+        &::-webkit-input-placeholder {
+            color: $color-grey-dark-2;
+        }
+    }
+
+    &__label {
+       font-size:1.2rem;
+       font-weight: 700;
+       margin-left: 2rem;
+       margin-top: .7rem;
+       display: block;
+       transition: all .4s;
+       opacity: 1; // Typicall opacity is 1, unless the adjacent element has placeholder-text show
+    }
+
+    &__input:placeholder-shown + &__label { 
+        /* This selects all elements with form__label that are immediately after an Input that has Placeholder Text showing */
+        opacity: 0;
+        visibility: hidden; //Visibility cannot be animated
+        transform: translateY(-4rem);
+    }
+  
+}
+```
+
+### Building the Booking Section - Part 3
+
+#### [Reminder] Radio Button Groups
+
+> The radio group must have share the same name (the value of the name attribute) to be treated as a group. Once the radio group is created, selecting any radio button in that group automatically deselects any other selected radio button in the same group. You can have as many radio groups on a page as you want, as long as each group has its own name.
+
+#### [Reminder] Using Pseudo Elements
+
+> And remember, each time that we use a pseudo-element, we have to actually specify its content property. And as always, I set it to empty. And also the display property, and I set it to block here.
+
+#### `:checked` Pseudo Class
+
+#### `<button>` vs `<a>` elements
+
+The `<button>` element doesnt have the link and the visted pseudo classes
+
+### Building the Footer
+
+[Tip] Inline Element Behavoir
+
+Inline Elements behave like text. Therefore you can use properties such as `text-align`
+
+Also Inline Block Elements do not occupy 100% of the available width
