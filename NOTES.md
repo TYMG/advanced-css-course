@@ -1423,8 +1423,69 @@ The `<button>` element doesnt have the link and the visted pseudo classes
 
 ### Building the Footer
 
-[Tip] Inline Element Behavoir
+### [Tip] Inline Element Behavoir
 
 Inline Elements behave like text. Therefore you can use properties such as `text-align`
 
 Also Inline Block Elements do not occupy 100% of the available width
+
+### Building the Navigation - Part 1
+
+#### `postion:fixed`
+
+> The element is removed from the normal document flow, and no space is created for the element in the page layout. It is positioned relative to the initial [containing block](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_Block) established by the [viewport](https://developer.mozilla.org/en-US/docs/Glossary/viewport), 
+
+#### `radial-gradient`
+
+> Well, the linear gradient goes from one side to the other one while the radial gradient starts in the middle of an element and goes from there in all the outside directions basically.
+
+#### [ Reminder ]: Solid Color Gradient Technique
+
+Using `linear-gradient` function with the `background-image` property
+
+```scss
+background-image: linear-gradient( 120deg, transparent 0%, transparent 50%, $color-white 50%);
+```
+
+
+
+Note to create the "sliding" effect, the Solid Color Gradiant Technique is use with background-size and background-color properties. 
+
+
+
+For the `:visited` and `:hover` pseudo classes, the SCGT is used to create a hard diagonal line through the background. The background-size property is then used the increase the size of the background, without increasing the size of the element. This result of the hard diagonal line which seperates the two colors. Lastly, using the `:hover` pseudo-class and background-position property, which determines the location of the background is used.
+
+```scss
+&__link {
+    &:link,
+    &:visited {
+      display: inline-block;
+      font-size: 3rem;
+      font-weight: 300;
+      color: $color-white;
+      text-decoration: none;
+      text-transform: uppercase;
+      background-image: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 50%,
+        $color-white 50%
+      );
+      background-size: 220%;
+      transition: all 0.5s;
+    }
+
+    &:hover {
+      color: $color-primary;
+      transform: translateX(1rem);
+      background-position: 100%;
+    }
+  }
+```
+
+
+
+
+
+ 
+
