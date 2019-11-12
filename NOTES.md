@@ -1485,7 +1485,98 @@ For the `:visited` and `:hover` pseudo classes, the SCGT is used to create a har
 
 
 
+### Building the Navigation - Part 2
+
+#### 'Slide Transition Effect'
+
+When positioning elements that are absolutes position based on a parent element, when the parent element has `transition: width (or all) .5s` property, depending on whether the parent is `right` or `left` positioned, the child component will "slide" in from that side.
+
+```
+  
+  &__parent {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0; //Slides in from the right
+    // left: 0; Slides in from the left
+    z-index: 1500;
+
+    width: 0;
+    opacity: 0;
+
+    transition: all .2s;
+  }
+  
+  &__child {
+    position: absolute;
+    top: 50%;
+    left: 50%; //
+    transform: translate(-50%, -50%);
+    list-style: none;
+    text-align: center;
+
+    // Needed For 'Slide Transition Effect'
+    width:100%;
+  }
+```
 
 
- 
 
+#### Cubic Bezier Function
+
+[Sample Easing Functions](easings.net)
+
+[Custom Cubic Bezier Functions](cubic-bezier.com)
+
+### Building the Navigation - Part 3
+
+#### [ Reuse ] Custom Hamburger Menu
+
+```scss
+  &__icon {
+      position: relative;
+      margin-top: 3.5rem;
+      &,
+      &::before,
+      &::after {
+          width: 3rem;
+          height: 2px;
+          background-color: $color-grey-dark-3;
+          display: inline-block;
+      }
+
+      &::before,
+      &::after {
+          content:"";
+          position: absolute;
+          left: 0;
+          transition: all 1s;
+      }
+
+      &::before { top: -1rem; }
+      &::after { top: 1rem; }
+
+  }
+
+  &__button:hover &__icon::before{
+      top:-1.25rem;
+  }
+
+  &__button:hover &__icon::after{
+    top:1.25rem;
+  }
+```
+
+
+
+#### [Checkbox Hack] 
+
+Using an invisible checkbox input that when clicked actives that input's `:checked` pseudo class.
+
+#### `transform-origin`
+
+> The **transform-origin** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property sets the origin for an element's transformations.
+>
+> The transformation origin is the point around which a transformation is applied. For example, the transformation origin of the `rotate()` function is the center of rotation.
+>
+> This property is applied by first translating the element by the value of the property, then applying the element's transform, then translating by the negated property value.
