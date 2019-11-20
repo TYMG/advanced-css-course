@@ -1652,3 +1652,43 @@ The **columns** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property
 #### [ Reminder ] How To Calculate Ems
 
 > <u>**One em is always the font sizeof the current element.**</u>
+
+
+
+### Building the Pop-up: Part 2
+
+#### [ Tip ] Hiding An Element 
+
+`display:none` cannot be animated, instead use `opacity:0` and `visibility:hidden` together.
+
+#### `:target` Pseudo Class
+
+> The **:target** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) [pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes) represents a unique element (the *target element*) with an `id`matching the URL's fragment.
+
+[ Reuse ] Using anchor tags to create popup
+
+The app had three buttons with an `href="#popup"`
+
+And the popup element itself had `id="popup"`
+
+The popup element css:
+
+```scss
+.popup {
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+
+    &:target{
+        opacity: 1;
+        visibility: visible;
+    }
+ }
+
+```
+
+Initially, the popup will not be visiable. When any of the buttons are clicked, `#popup` is added to the app's URL. When the id is added tp the URL, the `:target` pseudo class is activated, and the popup's `opacity` and `visibility` is updated.
+
+
+
+Transition delay
