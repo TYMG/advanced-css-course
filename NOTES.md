@@ -1580,3 +1580,75 @@ Using an invisible checkbox input that when clicked actives that input's `:check
 > The transformation origin is the point around which a transformation is applied. For example, the transformation origin of the `rotate()` function is the center of rotation.
 >
 > This property is applied by first translating the element by the value of the property, then applying the element's transform, then translating by the negated property value.
+
+
+
+### Building the Pop-up: Part 1
+
+*  <u>How</u> to build a nice popup with only CSS; 
+*  How to use the :target pseudo-class;
+*  How to create boxes with equal height using display: table-cell;
+*  How to create CSS text columns;
+*  How to automatically hyphenate words using hyphens.
+
+
+
+#### [ TIP ] Centering An Object Using Position
+
+```scss
+.center {
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+}
+```
+
+#### [ TIP ] Using `display:table` and `display:table-cell` To Create Equal Heights
+
+```scss
+&__parent {
+	display: table;
+}
+
+&__left-child {
+  width: 33.333333%; //OR any other width that =100%
+  display: table-cell; 
+}
+
+&__right-child {
+  width: 66.666667%;
+  display: table-cell;
+  vertical-align: middle;
+}
+```
+
+#### [ TIP ] Using `overflow:hidden` to hide images when using `border-radius`
+
+Nuf Said
+
+
+
+#### `column-count` , `column-width` ,  `columns` property
+
+The **column-count** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property breaks an element's content into the specified number of columns.
+
+The **column-width** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property sets the ideal column width in a multi-column layout. The container will have as many columns as can fit without any of them having a width less than the `column-width` value.
+
+```scss
+ __column{
+   column-count: 2;
+   column-gap: 4rem; //1em = 14px 
+   column-rule: 1px solid $color-grey-light-2;
+ }
+ 
+
+```
+
+
+
+The **columns** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property sets the column width and column count of an element.
+
+#### [ Reminder ] How To Calculate Ems
+
+> <u>**One em is always the font sizeof the current element.**</u>
