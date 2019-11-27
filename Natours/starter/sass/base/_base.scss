@@ -1,40 +1,45 @@
-
 *,
 *::after,
 *::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
 }
 
 html {
-  // Note: Setting the Root Font Size won't affect the Media Queries
-  /* This defines what one rem is */
-  font-size: 62.5%; //1rem = 10px; 10/16px = 62.5%;
-
-
-  /* 
-    Order is important with media queries, because conflicts can occur.
-
-    And when conflicts, where both media query are true, occur the last rule will be applied.
-  */
-  @include respond(tab-land) { // width < 1200
-    font-size: 56.25%; //1rem = 9px, 9/16 = 56%
-  }
+    // Note: Setting the Root Font Size won't affect the Media Queries
+    /* This defines what one rem is */
+    font-size: 62.5%; //1rem = 10px; 10/16px = 62.5%;
   
-  //Removed the @include respond(phone) b/c had same font size
-  @include respond(tab-port) { //900px  with <900
-    font-size: 50%; //1 rem = 8 px, 8/16 = 50% 
+  
+    /* 
+      Order is important with media queries, because conflicts can occur.
+  
+      And when conflicts, where both media query are true, occur the last rule will be applied.
+    */
+    @include respond(tab-land) { // width < 1200
+      font-size: 56.25%; //1rem = 9px, 9/16 = 56%
+    }
+    
+    //Removed the @include respond(phone) b/c had same font size
+    @include respond(tab-port) { //900px  with <900
+      font-size: 50%; //1 rem = 8 px, 8/16 = 50% 
+    }
+    //Removed the @include respond(phone) b/c had same font size
+    @include respond(phone) { //900px  with <900
+      font-size: 30%; //1 rem = 8 px, 8/16 = 50%
+    }
+    @include respond(big-desktop) { //1800px
+      font-size: 75%; //1rem = 12, 12/16
+    }
   }
-  //Removed the @include respond(phone) b/c had same font size
-  @include respond(phone) { //900px  with <900
-    font-size: 30%; //1 rem = 8 px, 8/16 = 50%
-  }
-  @include respond(big-desktop) { //1800px
-    font-size: 75%; //1rem = 12, 12/16
-  }
-}
-
 body {
-  box-sizing: border-box;
+    box-sizing: border-box;
+
+    padding:3rem;
+
+    @include respond(tab-port) { //900px  with <900
+        padding: 0;
+    }
+
 }
