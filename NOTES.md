@@ -1856,6 +1856,22 @@ html {
 
 If when developing the styles, if the rems were used instead of pixels, media queries can be used to set the root font size at certain breakpoints, which can aid in scaling the content withing the app.
 
-[ TIP ] Order of Media Queries
+#### [ TIP ] Order of Media Queries
 
 > I don't want the larger media query to apply, but the smaller one, and so this is the order in which we have to put the media queries.
+
+### Writing Media Queries -  Base, Typography, and Layout
+
+#### [ TIP ] Order of Media Queries Pt 2
+
+REMEMBER!!! 
+
+> The order of media queries are important, when more than one of the media queries apply, the last declaration that is the style that gets applied.
+
+So when creating a desktop first (max-width) application order the queries from largest to smallest. The opposition for mobile-first website, the order should be smallest to largest (min-width).
+
+#### [ Tip ] Viewing Media Queries in Dev Tools
+
+1. In Chrome Dev Tools, open Responsive Mode
+2. Click 'three-dot' "More Options" button,
+3. Select "Show Media Queries"
