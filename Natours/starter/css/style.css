@@ -1,3 +1,11 @@
+/*
+  0-600px: Phone
+  600px - 900px: Tablet Portrait
+  900px - 1200px: Tablet landscape
+  [1200 - 1800] is where our normal styles apply
+  1800px + :  Big desktop
+
+  */
 @keyframes spinner {
   0% {
     opacity: 1;
@@ -44,8 +52,25 @@
   box-sizing: inherit; }
 
 html {
+  /* This defines what one rem is */
   font-size: 62.5%;
-  /* This defines what one rem is */ }
+  /* 
+    Order is important with media queries, because conflicts can occur.
+
+    And when conflicts, where both media query are true, occur the last rule will be applied.
+  */ }
+  @media (max-width: 75em) {
+    html {
+      font-size: 56.25%; } }
+  @media (max-width: 56.25em) {
+    html {
+      font-size: 50%; } }
+  @media (max-width: 37.5em) {
+    html {
+      font-size: 30%; } }
+  @media (max-width: 112.5em) {
+    html {
+      font-size: 75%; } }
 
 body {
   box-sizing: border-box; }

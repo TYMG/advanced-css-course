@@ -1692,3 +1692,170 @@ Initially, the popup will not be visiable. When any of the buttons are clicked, 
 
 
 Transition delay
+
+
+
+## Section 6 - Advanced Responsive Design
+
+### Desktop-First Vs Mobile-First and Breakpoints
+
+#### Desktop-First
+
+* Tests using  `max-width`
+* Start writing CSS for the desktop: large screen;
+* Then, media queries shrink design to smaller screens. 
+
+### Mobile-First
+
+* Tests using `min-width`
+* Start writing CSS for mobile devices: small screen; 
+* Then, media queries expand design to a large desktop screen; Forces us to reduce websites and apps to the absolute essentials. 
+
+![box-sizing: border-box](./Slides/snippets/Desktop-Mobile-First-Media-Queries.png)
+
+#### Media Queries and Precedence
+
+> If there is a situation in multiple queries will apply, because both conditions are true. And, so the code in both media queries will be applied. Now, if you have conflicting CSS rules in these queries, which is usually the case, like defining the global font size in both media queries, than **the one which appears last in the code is the one that takes precedence.**
+
+Media queries don’t add any importance or specificity to selectors, so code order matters — media queries at the end 
+
+How to select breakpoints:
+
+* Bad - Using Popular Device Dimensions
+* Good - Look at all the most-used device width on the entire internet, try to group them together in a logical way and then pick our breakpoints from that. And while it's still not ideal, to use real devices to figure out breakpoint, it's already a lot better than the first way. Because we're using a lot of devices, and we're also using the most popular device width. Plus, we're not setting breakpoints at one specific point but between similar device width.
+* Perfect -  put the breakpoints wherever your design starts to look weird and out of place and don't think about devices, at all.
+
+![box-sizing: border-box](./Slides/snippets/Popular-Device-Resoluton.png)
+
+### Using the Power of Sass Mixins to Write Media Queries
+
+* How to use a powerful Sass mixing to write all 
+
+* How to use the @content and @if Sass Directives
+
+* Taking advantage of Chrome DevTools for responsive design
+
+#### Content Directive
+
+Within a mixing, the `@content` directive allows the pass in a block of code into the mixin.
+
+**Important distinction:** 
+
+Note that the `@content` is different than passing values to mixins as parameters, this instead passes the code block to the mixin. But both content and parameters can be passed into a mixin.
+
+Example
+
+Mixin code, note the @content
+
+```scss
+  @mixin respond-phone {
+    @media (max-width:600px) {
+      @content      
+    }
+  }
+```
+
+Scss calling the mix
+
+```scss
+html {
+  font-size: 62.5%;
+  /* This defines what one rem is */
+  @include respond-phone {
+    font-size: 50%; <-- This code block get passed		
+  }
+}
+```
+
+Improvement to code above
+
+#### `@if` directive
+
+> The `@if` rule is written `@if  { ... }`, and it controls whether or not its block gets evaluated (including emitting any styles as CSS). The [expression](https://sass-lang.com/documentation/syntax/structure#expressions) usually returns either [`true` or `false`](https://sass-lang.com/documentation/values/booleans)—if the expression returns `true`, the block is evaluated, and if the expression returns `false` it’s not.
+
+
+
+[ Use Later ] Media Query Mananger
+
+```scss
+  @mixin respond($breakpoint) {
+      @if $breakpoint == phone {
+        @media (max-width:600px) {@content};
+      }
+      @if $breakpoint == tab-port {
+        @media (max-width:900px) {@content};
+      }
+      @if $breakpoint == tab-land {
+        @media (max-width:1200px) {@content};
+      }
+      @if $breakpoint == big-desktop {
+        @media (max-width:1800px) {@content};
+      }
+  }
+```
+
+To use:
+
+```scss
+html {
+  font-size: 62.5%;
+  /* This defines what one rem is */
+  @include respond-phone {
+    font-size: 50%;
+  }
+  
+  @include respond(phone) {
+    font-size: 50%;
+  }
+  @include respond(tab-port) {
+    font-size: 60%;
+  }
+  @include respond(tab-land) {
+    font-size: 70%;
+  }
+  @include respond(big-desktop) {
+    font-size: 80%;
+  }
+}
+```
+
+Compiled CSS
+
+```css
+html {
+  font-size: 62.5%;
+  /* This defines what one rem is */ }
+  @media (max-width: 600px) {
+    html {
+      font-size: 50%; } }
+  @media (max-width: 600px) {
+    html {
+      font-size: 50%; } }
+  @media (max-width: 900px) {
+    html {
+      font-size: 60%; } }
+  @media (max-width: 1200px) {
+    html {
+      font-size: 70%; } }
+  @media (max-width: 1800px) {
+    html {
+      font-size: 80%; } }
+```
+
+#### Ems and Rems using Media Queries
+
+> About rems and ems, there's an important particularity about them in media queries. That's because ems and rems in media queries, they are not affected by a root font size setting, by this setting here. **They are simply not affected by what we do here in the root font size setting.** What that means is that one rem or one em in a media query is always just equal to the font size which is coming from the browser, and that's by default 16 pixels, but if the user changes it to 20 pixels, then it will be 20 pixels no matter what we have in our base font definition.
+
+> **What we're <u>going to use is ems</u> and not rems, because rems fail to work as intended in some of the browsers.** There's been some experiments done by people who understand a lot of all of this, and the conclusion basically is that ems are the best option for media queries.
+
+[ PX, EM or REM Media Queries? (Spoiler Alert: It' Em) ](https://zellwk.com/blog/media-query-units/)
+
+#### [ Use Later ] Using the Media Queries to set the Root Font Size
+
+**Remember:** Media Query Breakpoints are not affect setting the html root font size. 
+
+If when developing the styles, if the rems were used instead of pixels, media queries can be used to set the root font size at certain breakpoints, which can aid in scaling the content withing the app.
+
+[ TIP ] Order of Media Queries
+
+> I don't want the larger media query to apply, but the smaller one, and so this is the order in which we have to put the media queries.
