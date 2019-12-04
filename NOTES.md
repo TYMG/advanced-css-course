@@ -1875,3 +1875,312 @@ So when creating a desktop first (max-width) application order the queries from 
 1. In Chrome Dev Tools, open Responsive Mode
 2. Click 'three-dot' "More Options" button,
 3. Select "Show Media Queries"
+
+## Post Section 6 Issue:
+
+Note: There is a serious defect with the dev tools adding extra space that i was unable to fix. In the interest of finishing the course, I'm going to follow along the videos taking notes:
+
+### Writing Media Queries - Layout, About and Features Sections
+
+Nothing of Note....
+
+### Writing Media Queries - Tours, Stories, and Booking Sections
+
+Nothing of Note....
+
+### An Overview of Responsive Images
+
+3 Use Cases to Use Responsive Images
+
+![box-sizing: border-box](./Slides/snippets/Use Cases For Responsive Images.png)
+
+
+
+### Responsive Images in HTML - Art Direction and Density Switching 
+
+The Difference Between HTML and CSS Images
+
+> Now what's the difference between images in HTML and in CSS? 
+>
+> Well basically, with images in HTML, I simply mean all the IMG text, so all the image text, where we specify a source for the image. And in CSS of course, it's when we use background image. So such as this one, these ones here, so they are also background images. And so that's a difference. So for these images here we will use CSS. For responsive images and for the other ones, we will do stuff in HTML.
+
+#### `img` element  `srcset` property
+
+> **`srcset`** defines the set of images we will allow the browser to choose between, and what size each image is. 
+
+First, you need to create several different sized versions of the same image. This is slightly different depending on whether you are using photographs and existing artwork or creating new artwork from scratch.
+
+In either case, you'll usually want to create at least four versions of each image: a “normal” sized one, and then one at twice the size (2x), three times (3x), and four times (4x). When you create your images, it is helpful to append a size specification to each files
+
+The `srcset` attribute allows a list of image file URLs, along with **size descriptions**. Additionally, use the `src` attribute to identify a “default” image source, to be used in browsers that don't support `srcset`.
+
+The markup looks likes this:
+
+```html
+<img
+ srcset="
+  url size,
+  url size,
+  url size
+ "
+ src="default url"
+>
+```
+
+#### Specifying Image Density
+
+The more common way to to set include size information in the `srcset` attribute is to label each file by image density. You do this by putting `1x`, `2x`, `3x` and so forth after the URL. This works if you have made the different images in proportion to each other (which we did).
+
+```html
+<img srcset=" 
+/wp-content/uploads/flamingo4x.jpg 4x, 
+/wp-content/uploads/flamingo3x.jpg 3x, 
+/wp-content/uploads/flamingo2x.jpg 2x, 
+/wp-content/uploads/flamingo1x.jpg 1x " 
+src="/wp-content/uploads/flamingo-fallback.jpg" >
+```
+
+#### Specifying Image Width
+
+The other way to inform the browser about the different sizes is to actually specify the image width in pixels. This has some advantages, it seems, because it gives the browser more information about the images, so it can make a better decision about which one to select.
+
+```html
+<img srcset="
+/wp-content/uploads/flamingo4x.jpg 4025w, 
+/wp-content/uploads/flamingo3x.jpg 3019w, 
+/wp-content/uploads/flamingo2x.jpg 2013w, 
+/wp-content/uploads/flamingo1x.jpg 1006w " 
+src="/wp-content/uploads/flamingo-fallback.jpg" >
+```
+
+For image width, you use a `w` instead of an `x`.
+
+[Source:`What Img Srcset Does In HTML5: A Quick & Simple Guide`]( https://html.com/attributes/img-srcset/#ixzz66tX8WmUc) 
+
+`<picture>` Element
+
+The **HTML `` element** contains zero or more [`<source>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source) elements and one [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)element to provide versions of an image for different display/device scenarios. The browser will consider each child `<source>` element and choose the best match among them; if no matches are found or the browser doesn't support the `picutre`  element, the URL of the `<img>` element's `src` attribute is selected. The selected image is then presented in the space occupied by the `<img>` element.
+
+`<source>` element 
+
+> The **HTML `<source>` element** specifies multiple media resources for the [`<picture>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture), the [`<audio>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) element, or the [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) element.
+
+#### The difference between `srcset` and `<picture>`
+
+> `srcset` is for "resolution switching" and `<picture>` is for "art direction".
+>
+> Basically `srcset` is where you give the browser several different versions of the image to avoid loading big pictures on small screens and vice versa. `` is where you want fine-grained manipulation of which image shows up given some media queries. Maybe you want a specifically cropped tall splash screen on mobile and a wide one on desktop. They're essentially different pictures and you don't want to leave the details to chance.
+>
+> `srcset` sort of builds on `src` but gives the browser a chance to render the best version for the scenario and `<picture>` is useful if you want explicit control over how things are displayed, which is typically not necessary compared with `srcset`.
+
+#### [ Example ] Art Direction
+
+```html
+ <picture class="footer__logo">
+ 	<source srcset="img/logo-green-small-1x.png 1x, img/logo-green-small-2x.png 2x"
+ 		media="(max-width: 37.5em)">
+ 	<img srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x" alt="Full logo" 	                  		src="img/logo-green-2x.png">
+</picture>
+```
+
+> We started by using the picture element in which we can basically specify multiple sources for one image and then in the source element, we can actually write a media query just like we do in CSS. And so with this we force the browser to use this image source set here, this image source set in case that max width is less than 600 pixels, and in case it's not, so if it's larger than 600 pixels, then the browser is forced to use this image source set.
+
+### Responsive Images in HTML - Density and Resolution Switching
+
+#### [ TIP ] Finding Image Src Used In Dev Tools
+
+In Dev Tools, select an image, click the Properties Tab on the left panel on dev tools. Under the img drop down check the source. Note: That this functionality is not reliable...
+
+#### `<sizes>` attribute
+
+**`sizes`**
+
+One or more strings separated by commas, indicating a set of source sizes. Each source size consists of:
+
+1. A [media condition](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries#Syntax). This must be omitted for the last item in the list.
+2. A source size value.
+
+Media Conditions describe properties of the *viewport*, not of the *image*. For example, `(max-height: 500px) 1000px` proposes to use a source of 1000px width, if the *viewport* is not higher than 500px.
+
+> Using sizes to inform the browser about the approximate width of the image at different view port width. And so, with that information, together with the width descriptor (being the w or #x after a srcset image), the browser can then figure out which is the perfect image to use for the current view port width and the current display resolution.
+
+[ Reminder ] Set Default `src` property for images when using `srcset`
+
+Just in case the browser cannot handle the srcset and sizes properties
+
+### Final Recap: Responsive Images in HTML
+
+```
+ <img srcset="img/nat-1.jpg 300w, img/nat-1-large.jpg 1000w"
+    sizes="(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px"
+    alt="Photo 1"
+    class="composition__photo composition__photo--p1"
+    src="img/nat-1-large.jpg">
+```
+
+So we have two versions of the same image. One has 300 pixels and one has 1,000 pixels, which is the large one. And so, in the source set attribute here, we specify the width descriptor and specify exactly the width in pixels that each image has. So this one 300, this one 1,000. 
+
+Then next, we use the size attribute to specify the approximate view in view port width units for different breakpoints. And then finally if none of these breakpoints here apply, we just use our default here basically. And that is it. So, the browser as its loading the HTML document, it knows its current view port width, and it knows its current pixel density of the screen. And having in mind all the information here that we provided, it then can choose which image to download. And that's the entire philosophy behind this 
+resolution switching method.
+
+```
+ <picture class="footer__logo">
+    <source srcset="img/logo-green-small-1x.png 1x, img/logo-green-small-2x.png 2x"
+            media="(max-width: 37.5em)">
+    <img srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x" alt="Full logo" src="img/logo-green-2x.png">
+  </picture>
+```
+
+Now, just to compare it again with the art direction, let's come back here again to the footer. So here, it is a bit different. So what we do here is to basically force the browser to use this image here that we give it here in case that this media query applies. And so, the browser doesn't really have a choice, which is actually exactly what we want for art direction.
+
+### Responsive Images in CSS
+
+Note: That media queries can be set using various factors, including density pixel resolution.
+
+```scss
+    @media only screen and (min-resolution: 192dpi)  {
+        background-image: linear-gradient(
+            to right bottom,
+            rgba($color-primary-light, 0.8),
+            rgba($color-primary-dark, 0.8)),
+        url(../img/hero.jpg);
+    }
+```
+
+> So for example, for a screen, so that's the 600 pixel media query, remember? So imagine that we have a screen with 600 pixels. And usually these really small screens, they're usually phones. **And phones, they usually have a pixel density of two.** So they are usually two x screens always, okay? So we can consider that. **Now if the screen is 600 and if the pixel density is two, well then the image that we need at this size, doesn't have to be larger than 1200 pixels**, right? So 600 times 2 is 1200, and so an image, which has 1200 pixels of width, is more than enough to display on a high density screen like this, okay? Therefor, it's not really logic to load 
+a 2000 pixel image
+
+Note: That commas can be used add clauses to Media Queries
+
+```scss
+    @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em),
+            only screen and (min-width: 125em) {
+        background-image: linear-gradient(
+            to right bottom,
+            rgba($color-primary-light, 0.8),
+            rgba($color-primary-dark, 0.8)),
+        url(../img/hero.jpg);
+    }
+```
+
+### Testing For Browser Support With @Supports
+
+#### [`@supports`](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports)
+
+The @supports CSS at-rule lets you specify declarations that depend on a browser's support for one or more specific CSS features. Can use `not` prefix, or `and` or `or` for clauses. If the feature is supported, then the code will be supported.
+
+```scss
+ @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        background-color: rgba($color-black, .3);
+    }
+```
+#### [`backdrop-filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter)
+
+[ Reminder ] Always Placed Webkit CSS Properties Before CSS Properties 
+
+[ Tip ] Show Develop Toolbar in Safari
+
+[ Reuse ] Selecting Device Pixel Density
+
+`-webkit-min-device-pixel-ratio` helps specify a pixel density in Safari Devices 
+
+```
+    @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em),
+            only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
+            only screen and (min-width: 125em) {
+        background-image: linear-gradient(
+            to right bottom,
+            rgba($color-primary-light, 0.8),
+            rgba($color-primary-dark, 0.8)),
+        url(../img/hero.jpg);
+    }
+```
+
+### Setting up a Simple Build Process with NPM Scripts
+
+#### [ Tool ]  [`concat`](https://www.npmjs.com/package/concat) - concatenate multiple files
+
+#### [ Tool ]  [`autoprefixer`](https://www.npmjs.com/package/autoprefixer)   [`postcss-cli`](https://www.npmjs.com/package/postcss-cli)  <---- REUSE!!!!!!!!
+
+* Autoprefixer - [PostCSS](https://github.com/postcss/postcss) plugin to parse CSS and add vendor prefixes to CSS rules using values from [Can I Use](https://caniuse.com/). It is [recommended](https://developers.google.com/web/tools/setup/setup-buildtools#dont_trip_up_with_vendor_prefixes) by Google and used in Twitter and Alibaba.
+
+  Write your CSS rules without vendor prefixes (in fact, forget about them entirely)
+
+* postcss-cli - Required to use autoprefixer
+
+Use:
+
+```json
+    "prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/style.concat.css -o css/style.prefix.css"
+```
+
+Where `css/style.concat.css` is the input file and `css/style.prefix.css` is the output.
+
+[ Tool ]  [`npm-run-all`](https://www.npmjs.com/package/npm-run-all) - A CLI tool to run multiple npm-scripts in parallel or sequential.
+
+To specify that the `rpm-run-all` command be run in parallel, use the `--parallel` flag.
+
+### [ REUSE ] Sample Build Process
+
+```json
+"compile:sass": "node-sass sass/main.scss css/style.comp.css",
+"concat:css": "concat -o css/style.concat.css css/icon-font.css css/style.comp.css",
+"prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/style.concat.css -o css/style.prefix.css",
+"compress:css": "node-sass css/style.prefix.css css/style.css --output-style compressed",
+"build:css": "npm run all compile:sass concat:css prefix:css compress:css"
+```
+
+### Wrapping up the Natours Project: Final Considerations
+
+#### [`::selection`](https://developer.mozilla.org/en-US/docs/Web/CSS/::selection)
+
+The **`::selection`** CSS [pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements) applies styles to the part of a document that has been highlighted by the user (such as clicking and dragging the mouse across text).
+
+#### Using `only screen`  in media queries
+
+> The only keyword prevents older browsers that do not support media queries with media features from applying the specified styles. **It has no effect on modern browsers.**
+
+[Source](https://www.w3schools.com/cssref/css3_pr_mediaquery.asp)
+
+#### [ Reminder ] Purpose of the `<meta>` tag
+
+```html
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+```
+
+> **Responsive web design does not work without having this meta element here in the HTML head.** Because what this does is basically to say that our website should be rendered with the width of the device, which means that **the width of the content should be the device width**, so if we have a device with 500 pixels, then a website should have a width of 500 pixels. And that's of course, what we want, but if we do not specify this here in the HTML, then the browser will basically zoom out our page, so that the largest possible version of our page fits the screen
+>
+> If we didn't have this meta name view port element in our markup, okay, so whenever you're coding a new page, don't forget to put this part in there.
+
+#### [ REUSE ] Identifying Devices Non Touch Devices (or mobile devices that cannot hover)
+
+Typically on a mobile touch device, users do usually not hover, this media can be used:
+
+``` scss
+@media only screen and (max-width: 56.25em), only screen and (hover: none) { }
+```
+
+This media query means that if is screen is smaller than max-width:56.25em OR the media is a touch screen device, where the primary pointer system is the finger and can't hover, style accoridingly. The inverse, a device where the primary input is a mouse and can easily hover parts of the page takes the value of `hover`.
+
+A better version of this query:
+
+```scss
+/* One or more available input mechanism(s) 
+   can hover over elements with ease */
+@media (any-hover: hover) { ... }
+
+/* One or more available input mechanism(s) can hover, 
+   but not easily (e.g., many mobile devices emulate 
+   hovering when the user performs a long tap) */
+@media (any-hover: on-demand) { ... }
+
+/* One or more available input mechanism(s) cannot 
+   hover (or there are no pointing input mechanisms) */
+@media (any-hover: none) { ... }
+```
+
+About `any-hover`:
+
+> ... any-hover media features are identical to the ... hover media features, but they correspond to the union of capabilities of all the pointing devices available to the user. More than one of their values can match, if different pointing devices have different characteristics. They must only match none if all of the pointing devices would match none for the corresponding query, or there are no pointing devices at all.
