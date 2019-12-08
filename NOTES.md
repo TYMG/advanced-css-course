@@ -2184,3 +2184,78 @@ A better version of this query:
 About `any-hover`:
 
 > ... any-hover media features are identical to the ... hover media features, but they correspond to the union of capabilities of all the pointing devices available to the user. More than one of their values can match, if different pointing devices have different characteristics. They must only match none if all of the pointing devices would match none for the corresponding query, or there are no pointing devices at all.
+
+## Section 7: Trillo Project
+
+### Why Flexbox: An Overview of the Philosohpy Behind Flexbox
+
+#### Flexbox Concepts
+
+![box-sizing: border-box](./Slides/snippets/Flexbox Concepts.png)
+
+* Main Axis - The direction which these Flex items are laid out is called the main axis.
+* Cross Axis - The Perpendicular axis
+
+#### Flexbox Container and Item Properties
+
+![box-sizing: border-box](./Slides/snippets/Flex Container Item Properties.png)
+
+#### [`flex`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex) property
+
+> And now finally, we have three properties that together, basically helps Flexbox decide on the width of a Flex item.
+>
+> So, with **flex-grow**, we define how much an item can grow.
+>
+> With **flex-shrink**, we define how much it can shrink.
+>
+> And with **flex-basis**, we can define its base width.
+>
+> And there's actually a shortened property of these, which is simply called flex.
+
+### A Basic Intro to Flexbox: The Flex Container
+
+#### [`justify-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)
+
+`space-between`
+
+> The items are evenly distributed within the alignment container along the main axis. The spacing between each pair of adjacent items is the same. The first item is flush with the main-start edge, and the last item is flush with the main-end edge.
+
+`space-around`
+
+>The items are evenly distributed within the alignment container along the main axis. The spacing between each pair of adjacent items is the same. The empty space before the first and after the last item equals half of the space between each pair of adjacent items.
+
+The total space between two is 2 times a single unit of space.
+
+![box-sizing: border-box](./Slides/snippets/Space Around Diagram.png)
+
+`space-evenly`
+
+> The items are evenly distributed within the alignment container along the main axis. The spacing between each pair of adjacent items, the main-start edge and the first item, and the main-end edge and the last item, are all exactly the same.
+
+![box-sizing: border-box](./Slides/snippets/Space Evenly Diagram.png)
+
+>So while **space evenly** ensures that the <u>space is always the same between elements and on the sides of the elements</u>, **space around** ensures that the <u>amount of space around each element is the same on the left and on the right side.</u>
+>
+>So it's a subtle difference,
+
+#### Justify-Content vs Align-Items
+
+Justify-Content defines how the flex items are aligned along the cross axis. Align-items defines how the items are aligned along the cross axis.
+
+![box-sizing: border-box](./Slides/snippets/Axis Diagram.png)
+
+#### [`align-items`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)
+
+`stretch`
+
+> Flex items are stretched such that the cross-size of the item's margin box is the same as the line while respecting width and height constraints.
+
+Meaning that stretch will stretch the other elements to match the height the tallest element. The default of align-items is stretch.
+
+`baseline`
+
+> All flex items are aligned such that their [flex container baselines](https://drafts.csswg.org/css-flexbox-1/#flex-baselines) align. The item with the largest distance between its cross-start margin edge and its baseline is flushed with the cross-start edge of the line.
+
+Meaning that baseline will align all the element's content along a line
+
+![box-sizing: border-box](./Slides/snippets/Baseline Diagram.png)
