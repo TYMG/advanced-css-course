@@ -2259,3 +2259,68 @@ Meaning that stretch will stretch the other elements to match the height the tal
 Meaning that baseline will align all the element's content along a line
 
 ![box-sizing: border-box](./Slides/snippets/Baseline Diagram.png)
+
+#### A Basic Intro to Flexbox: Flex Items
+
+`flex-grow`, `flex-shrink`, `flex-basis`
+
+`flex-grow` 
+
+> The **`flex-grow`** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property sets the flex grow factor of a flex item [main size](https://www.w3.org/TR/css-flexbox/#main-size). It specifies how much of the remaining space in the flex container should be assigned to the item (the flex grow factor).
+>
+> The remaining space is the size of the flex container minus the size of all flex items' sizes together. If all sibling items have the same flex grow factor, then all items will receive the same share of remaining space, otherwise it is distributed according to the ratio defined by the different flex grow factors. 
+
+Meaning that the value of the **flex-grow only matters if there are other differing flex-grow values.**
+
+```scss
+.item{
+  background-color: #f1425d;
+  padding: 40px;
+  margin:30px;
+  color:#fff;
+  font-size:30px;
+
+  flex-grow:1;
+}
+
+.i2 {
+  height:200px;
+  flex-grow: 3;
+}
+```
+
+`flex-basis`
+
+> The **`flex-basis`** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property sets the initial main size of a flex item. It sets the size of the content box unless otherwise set with [`box-sizing`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing).
+
+```css
+/* Automatically size based on the flex item’s content */
+flex-basis: content;
+```
+
+`flex-shrink`
+
+Having a 0 value for flex-shrink will prevent the flex-item from shrinking.
+
+`flex` shorthard
+
+>* One-value syntax: the value must be one of:
+>  * a <number>: In this case it is interpreted as flex: <number> 1 0; the <flex-shrink> value is assumed to be 1 and the <flex-basis> value is assumed to be 0.
+>    one of the keywords: none, auto, or initial.
+>* Two-value syntax: the first value must be a <number> and it is interpreted as <flex-grow>. The second value must be one of:
+>  * a <number>: then it is interpreted as <flex-shrink>.
+>  * a valid value for width: then it is interpreted as <flex-basis>.
+>* Three-value syntax: the values must be in the following order:
+>  * a <number> for <flex-grow>.
+>  * a <number> for <flex-shrink>.
+>  * a valid value for width for <flex-basis>.
+
+### Basic Intro to Flexbox: Adding More Flex Items
+
+[`flex-wrap`]()
+
+#### [Reminder] Align-Content vs Align-Items
+
+> what the align-content property does is that it aligns the rows along the cross axis.
+>
+> So it's pretty similar to align-items with the difference that align-items aligns the flex items as the name actually says, and align-content aligns entire, let's say rows, along the cross-axis, right
