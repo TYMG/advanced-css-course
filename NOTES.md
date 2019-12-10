@@ -2305,15 +2305,15 @@ Having a 0 value for flex-shrink will prevent the flex-item from shrinking.
 `flex` shorthard
 
 >* One-value syntax: the value must be one of:
->  * a <number>: In this case it is interpreted as flex: <number> 1 0; the <flex-shrink> value is assumed to be 1 and the <flex-basis> value is assumed to be 0.
->    one of the keywords: none, auto, or initial.
+>    * a <number>: In this case it is interpreted as flex: <number> 1 0; the <flex-shrink> value is assumed to be 1 and the <flex-basis> value is assumed to be 0.
+>      one of the keywords: none, auto, or initial.
 >* Two-value syntax: the first value must be a <number> and it is interpreted as <flex-grow>. The second value must be one of:
->  * a <number>: then it is interpreted as <flex-shrink>.
->  * a valid value for width: then it is interpreted as <flex-basis>.
+>    * a <number>: then it is interpreted as <flex-shrink>.
+>    * a valid value for width: then it is interpreted as <flex-basis>.
 >* Three-value syntax: the values must be in the following order:
->  * a <number> for <flex-grow>.
->  * a <number> for <flex-shrink>.
->  * a valid value for width for <flex-basis>.
+>    * a <number> for <flex-grow>.
+>    * a <number> for <flex-shrink>.
+>    * a valid value for width for <flex-basis>.
 
 ### Basic Intro to Flexbox: Adding More Flex Items
 
@@ -2324,3 +2324,61 @@ Having a 0 value for flex-shrink will prevent the flex-item from shrinking.
 > what the align-content property does is that it aligns the rows along the cross axis.
 >
 > So it's pretty similar to align-items with the difference that align-items aligns the flex items as the name actually says, and align-content aligns entire, let's say rows, along the cross-axis, right
+
+### Defining Project Settings and Custom Properties
+
+#### [ Reminder ] `box-sizing:border box`
+
+`box-sizing` - The **`box-sizing`** [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) property sets how the total width and height of an element is calculated.
+
+`border-box` tells the browser to account for any border and padding in the values you specify for an element's width and height. If you set an element's width to 100 pixels, that 100 pixels will include any border or padding you added, and the content box will shrink to absorb that extra width. This typically makes it much easier to size elements.
+
+#### **[ TIP && REUSE ] CSS Variables!!!!!!!!!!!!!**
+
+And that is CSS custom properties which are better as CSS variables. 
+But that's of course not the only advantage of CSS variables. CSS Variables can be manipulated in JavaScript and we can also edit them in our dev tools. Also it's easier to use CSS variables in the code function and also <u>**CSS variables cascade and they are inherited**</u>. So they are very different from SASS variables in that regard. 
+
+Custom properties have to be defined inside a scope and so within a declaration block.
+
+By declaring a custom property on the `:root` pseudo-class, that style will be applied everywhere.
+
+```scss
+:root{
+
+}
+```
+
+So this is the root pseudo class and this is essentially like the same thing as the HTML selector but with a higher specificity.
+
+### Building the Overall Layout
+
+#### [ Reminder ] Main Layout
+
+> The **HTML `<main>` element** represents the dominant content of the [`<body>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body) of a document. The main content area consists of content that is directly related to or expands upon the central topic of a document, or the central functionality of an application.
+
+Source: [`<main>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main)
+
+#### [ Matt Musing ] Using Max-Width, Min-Width, `width:100%` in layouts
+
+**min-width:** If you set it 50px, then by default your div will be of width 50px. If the content inside the div has more width than 50px, then it(your div with min-width) will expand.
+
+**max-width:** If you set it 50px and if the content inside the div has more width than 50px, then it(your div with max-width) will not expand, a horizontal scroll may appear depending on your overflow settings. 
+
+Note the inverse could be said:
+
+> And then once again I'm going to use max width here. So that the container can decrease if there is not enough space to display our 120rem which is the width we want for this container, okay?
+>
+> Aright, so 1,200 pixels basically, if we have enough space, but if it's not enough space, so if the view port is less that 1,200 pixels, then we simply occupy 100% of the available view port width.
+
+**width:100%** By default divs are of width 100% but if you have floating divs and you want to them to take all the horizontal space of their container, width:100% does help there.
+
+[ Reminder ] `flex:1`
+
+* One-value syntax: the value must be one of:
+   * a <number>: In this case it is interpreted as flex: <number> 1 0; the <flex-shrink> value is assumed to be 1 and the <flex-basis> value is assumed to be 0.
+     one of the keywords: none, auto, or initial.
+
+So `flex:1` means "the element should grow as much as it can."
+
+### Building the Header - Part 1
+
