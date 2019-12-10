@@ -2382,3 +2382,34 @@ So `flex:1` means "the element should grow as much as it can."
 
 ### Building the Header - Part 1
 
+#### SVG (Scalable Vector Graphics)
+
+##### [IcoMoon (Free SVGs)](https://icomoon.io/app/#/select)
+
+##### Sprite Files
+
+An SVG image sprite is an SVG file containing multiple images (e.g., icons). Unlike SVG symbols (more on this technique later), the images included in an SVG sprite are distributed in a grid.
+
+Combining more images in a single file is a performance booster, as opposed to creating a different file for each image. The main reason being a reduction of the HTTP requests. Reducing HTTP requests, in combo with a caching system for your assets, allows your users to download images in no time!
+
+Resources: 
+
+[Guide to Create and Use SVG Sprites](https://w3bits.com/svg-sprites/)
+
+[The guide to integrating and styling icon systems — SVG sprites, SVG symbols and icon fonts](https://blog.nucleoapp.com/the-guide-to-integrating-and-styling-icon-systems-svg-sprites-svg-symbols-and-icon-fonts-da7c424dac1b)
+
+##### Using SVG Sprite
+
+```html
+<svg class="search_icon">
+		<use xlink:href="img/sprite.svg#icon-magnifying-glass"></use> <-- Here
+</svg>
+```
+
+Using this method allows users to the color of each of the icons using CSS. 
+
+Now another thing is that using SVG's like this with the 'xlink href' attribute is only going to work on a web server. So only on the web server, you will be able to see this sprite SVG file. Livesever provides a webserver, that's why liveserver works.
+
+##### [ TIP ] Sizing SVGs
+
+To size an SVG, set the height and the width of the icon element (using class or id) 
